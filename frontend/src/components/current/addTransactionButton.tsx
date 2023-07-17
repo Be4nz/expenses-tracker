@@ -6,10 +6,12 @@ import styled from "@emotion/styled";
 const Container = styled.div`
   display: flex;
   justify-content: flex-end;
-  padding-right: 100px;
 `;
 
 const Button = styled.button`
+  position: absolute;
+  right: 0px;
+  transform: translate(-100%, -50%);
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -21,6 +23,7 @@ const Button = styled.button`
   justify-content: center;
   align-items: center;
   font-size: 20px;
+  z-index: 3;
 `;
 
 const AddTransactionButton = () => {
