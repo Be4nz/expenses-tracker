@@ -7,7 +7,6 @@ import AddTransactionButton from "../components/current/addTransactionButton";
 import { getExpense, getIncome } from "../api/balance";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
-import Sidenav from "../components/navigation/sideNav";
 
 const Current = () => {
   const [income, setIncome] = useState<number>(0);
