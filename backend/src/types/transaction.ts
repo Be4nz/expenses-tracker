@@ -1,8 +1,9 @@
 export interface Transaction {
   id: number;
+  title: string;
   date: Date;
-  type: string;
-  subtype: TransactionType;
+  tag: string;
+  type: TransactionType;
   amount: number;
   notes: string;
 }

@@ -20,11 +20,11 @@ const getTransactionById = (req: Request, res: Response) => {
 };
 
 const addTransaction = (req: Request, res: Response) => {
-  const { date, type, subtype, amount, notes } = req.body;
+  const { title, date, tag, type, amount, notes } = req.body;
 
   pool.query(
     queries.addTransaction,
-    [date, type, subtype, amount, notes],
+    [title, date, tag, type, amount, notes],
     (error, results) => {
       if (error) throw error;
       res.status(201).send("Transaction created");

@@ -33,8 +33,12 @@ const CreateTransactionModal = ({
   const dispatch = useDispatch();
 
   const onSubmit = (transaction: Transaction) => {
-    dispatch(setLimit(5));
-    create(transaction);
+    create(transaction).then(() => {
+      dispatch(setLimit(0));
+      setTimeout(() => {
+        dispatch(setLimit(5));
+      }, 2);
+    });
     handleClose();
   };
 

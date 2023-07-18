@@ -68,10 +68,11 @@ interface Props {
 const CreateTransactionForm: React.FC<Props> = ({ onSubmit }) => {
   const [transaction, setTransaction] = useState<Transaction>({
     id: 0,
-    date: new Date(),
-    type: "",
-    subtype: "INCOME",
+    title: "",
     amount: 0,
+    type: "INCOME",
+    tag: "",
+    date: new Date(),
     notes: "",
   });
 
@@ -99,6 +100,49 @@ const CreateTransactionForm: React.FC<Props> = ({ onSubmit }) => {
       {({ values, handleBlur }) => (
         <Form>
           <InputLine>
+            <TextField
+              name="title"
+              label="Title"
+              value={transaction.title}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              required
+            />
+          </InputLine>
+          <InputLine>
+            <TextField
+              label="Amount"
+              name="amount"
+              value={transaction.amount}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              required
+            />
+          </InputLine>
+          <InputLine>
+            <Select
+              label="Transaction type"
+              name="type"
+              value={transaction.type}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              required
+            >
+              <MenuItem value={"INCOME"}>Income</MenuItem>
+              <MenuItem value={"EXPENSE"}>Expense</MenuItem>
+            </Select>
+          </InputLine>
+          <InputLine>
+            <TextField
+              name="tag"
+              label="Tag"
+              value={transaction.tag}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              required
+            />
+          </InputLine>
+          <InputLine>
             <DatePicker
               label="Date"
               value={dayjs(transaction.date)}
@@ -113,45 +157,11 @@ const CreateTransactionForm: React.FC<Props> = ({ onSubmit }) => {
           </InputLine>
           <InputLine>
             <TextField
-              name="type"
-              label="Category"
-              value={transaction.type}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              required
-            />
-          </InputLine>
-          <InputLine>
-            <Select
-              label="Type"
-              name="subtype"
-              value={transaction.subtype}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              required
-            >
-              <MenuItem value={"INCOME"}>Income</MenuItem>
-              <MenuItem value={"EXPENSE"}>Expense</MenuItem>
-            </Select>
-          </InputLine>
-          <InputLine>
-            <TextField
-              label="Amount"
-              name="amount"
-              value={transaction.amount}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              required
-            />
-          </InputLine>
-          <InputLine>
-            <TextField
               label="Notes"
               name="notes"
               value={transaction.notes}
               onChange={handleChange}
               onBlur={handleBlur}
-              required
             />
           </InputLine>
           <Button type="submit">Submit</Button>

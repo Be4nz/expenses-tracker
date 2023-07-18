@@ -7,6 +7,7 @@ import { getCount, getTransactions } from "../../api/transactions";
 import { setLimit } from "../slice/transactionLimitSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
+import BarChart from "../visualisations/barChart";
 
 const ListContainer = styled("div")`
   max-height: 390px;

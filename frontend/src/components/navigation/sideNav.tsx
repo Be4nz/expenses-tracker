@@ -12,7 +12,12 @@ const SideNav: React.FC<props> = ({ isOpen, toggleOpen }) => {
   return (
     <div className={sidebarClass}>
       {NavData.map((data) => (
-        <NavUnitCard text={data.text} icon={data.icon} link={data.link} />
+        <NavUnitCard
+          key={data.id}
+          text={data.text}
+          icon={data.icon}
+          link={data.link}
+        />
       ))}
     </div>
   );

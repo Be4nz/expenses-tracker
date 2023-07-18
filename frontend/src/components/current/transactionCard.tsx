@@ -1,8 +1,10 @@
 import { Paper } from "@mui/material";
 import { Transaction } from "../../types/transaction";
 import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
+import { FormatDate } from "../../utils/dateUtils";
 
-const TransactionContainer = styled(Paper)`
+const TransactionContainer = styled(Link)`
   width: 70%;
   height: 180px;
   margin: auto;
@@ -12,6 +14,8 @@ const TransactionContainer = styled(Paper)`
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 15px;
+  text-decoration: none;
+  border-radius: 5px;
 `;
 
 const Row = styled("div")`
@@ -29,7 +33,7 @@ const Note = styled("p")`
 
 const Amount = styled("p")<{ transaction: Transaction }>`
   color: ${({ transaction }) =>
-    transaction.subtype === "EXPENSE" ? "#B84F4F" : "#72C675"};
+    transaction.type === "EXPENSE" ? "#B84F4F" : "#72C675"};
   margin: 0;
   font-size: 48px;
 `;
@@ -47,19 +51,17 @@ const Date = styled("p")`
 `;
 
 const TransactionCard = ({ transaction }: { transaction: Transaction }) => {
-  const dateString = transaction.date.toString();
-
   return (
-    <TransactionContainer variant="outlined">
+    <TransactionContainer to={"/transactions/" + transaction.id}>
       <Row>
-        <Note>{transaction.notes}</Note>
+        <Note>{transaction.title}</Note>
         <Amount transaction={transaction}>
-          {transaction.subtype === "EXPENSE" ? "-" : "+"}${transaction.amount}
+          {transaction.type === "EXPENSE" ? "-" : "+"}${transaction.amount}
         </Amount>
       </Row>
       <Row>
-        <Type>{transaction.type}</Type>
-        <Date>{dateString.slice(0, dateString.indexOf("T"))}</Date>
+        <Type>{transaction.tag}</Type>
+        <Date>{FormatDate(transaction.date)}</Date>
       </Row>
     </TransactionContainer>
   );

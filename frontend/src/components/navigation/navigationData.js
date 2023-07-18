@@ -5,13 +5,13 @@ export const NavData = [
   {
     id: 1,
     text: "Current month",
-    icon: <LibraryBooksIcon />,
+    icon: <LibraryBooksIcon fontSize="large" />,
     link: "/current",
   },
   {
     id: 2,
     text: "History",
-    icon: <HistoryIcon />,
+    icon: <HistoryIcon fontSize="large" />,
     link: "/history",
   },
 ];

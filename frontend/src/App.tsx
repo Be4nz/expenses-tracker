@@ -12,6 +12,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import MenuButton from "./components/navigation/menuButton";
 import History from "./pages/history";
 import NavigationBar from "./components/navigation/navigationBar";
+import TransactionDetails from "./pages/transactionDetails";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Routes>
             <Route path="/current" element={<Current />} />
             <Route path="/history" element={<History />} />
+            <Route path="/transactions/:id" element={<TransactionDetails />} />
             <Route path="*" element={<Navigate to="/current" replace />} />
           </Routes>
         </LocalizationProvider>

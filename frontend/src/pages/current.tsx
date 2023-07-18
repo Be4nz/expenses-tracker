@@ -15,7 +15,7 @@ const Current = () => {
 
   useEffect(() => {
     getIncome().then((data) => {
-      setIncome(parseInt(data[0].sum));
+      setIncome(parseInt(data[0].sum) || 0);
     });
     getExpense().then((data) => {
       setExpense(parseInt(data[0].sum) || 0);

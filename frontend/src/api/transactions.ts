@@ -12,6 +12,11 @@ export const create = async (newObject: Transaction) => {
   return request.then((response) => response.data);
 };
 
+export const getTransactionById = async (id: string) => {
+  const request = axios.get(baseUrl + "/single/" + id);
+  return request.then((respone) => respone.data);
+};
+
 export const getCount = async () => {
   const request = axios.get(baseUrl + "/count");
   return request.then((response) => response.data);
