@@ -63,21 +63,10 @@ const Button = styled("button")`
 
 interface Props {
   onSubmit: (transaction: Transaction) => void;
-  toEdit?: Transaction;
+  toEdit: Transaction;
 }
 
-const CreateTransactionForm: React.FC<Props> = ({
-  onSubmit,
-  toEdit = {
-    id: 0,
-    title: "",
-    amount: 0,
-    type: "INCOME",
-    tag: "",
-    date: new Date(),
-    notes: "",
-  },
-}) => {
+const CreateTransactionForm: React.FC<Props> = ({ onSubmit, toEdit }) => {
   const [transaction, setTransaction] = useState<Transaction>(toEdit);
 
   const handleChange = (
