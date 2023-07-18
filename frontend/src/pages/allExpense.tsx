@@ -5,39 +5,36 @@ import OverviewCards from "../components/transactions/overviewCards";
 import TransactionsList from "../components/transactions/transactionsList";
 import AddTransactionButton from "../components/transactions/addTransactionButton";
 import { getExpense, getIncome } from "../api/balance";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
 import LoadingWrapper from "../components/loadingWrapper";
-import { getCount, getTransactions } from "../api/transactions";
+import { getExpenseCount, getExpenseTransactions } from "../api/transactions";
 import { Transaction } from "../types/transaction";
+import { setLimit } from "../components/slice/transactionLimitSlice";
 
-const Current = () => {
-  const [income, setIncome] = useState<number>(0);
+const AllExpense = () => {
   const [expense, setExpense] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
-  const limit = useSelector((state: RootState) => state.limit.limit);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [transactionsCount, setTransactionsCount] = useState<number>(0);
 
+  const limit = useSelector((state: RootState) => state.limit.limit);
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    getCount().then((data) => {
+    dispatch(setLimit(5));
+    getExpenseCount().then((data) => {
       setTransactionsCount(data[0].count);
     });
   }, []);
 
   useEffect(() => {
     setLoading(true);
-    getTransactions(limit).then((data) => {
+    getExpenseTransactions(limit).then((data) => {
       setTransactions(data);
     });
-    getIncome()
-      .then((data) => {
-        setIncome(parseInt(data[0].sum) || 0);
-      })
-      .catch(() => {
-        setError(true);
-      });
     getExpense()
       .then((data) => {
         setExpense(parseInt(data[0].sum) || 0);
@@ -48,21 +45,22 @@ const Current = () => {
       .finally(() => setLoading(false));
   }, [limit]);
 
-  const balance = income - expense;
-
   return (
     <LoadingWrapper loading={loading} error={error}>
-      <BalanceCard balance={"$" + balance} color="white" title="Balance" />
-      <OverviewCards income={income} expense={expense} />
+      <BalanceCard
+        balance={"-$" + expense}
+        color={"#B84F4F"}
+        title={"Expense"}
+      />
       <RecentTransactionsTitle />
       <TransactionsList
         transactions={transactions}
         transactionsCount={transactionsCount}
-        cardCount={2}
+        cardCount={3}
       />
       <AddTransactionButton />
     </LoadingWrapper>
   );
 };
 
-export default Current;
+export default AllExpense;

@@ -7,6 +7,16 @@ export const getTransactions = async (limit: number) => {
   return request.then((response) => response.data);
 };
 
+export const getIncomeTransactions = async (limit: number) => {
+  const request = axios.post(baseUrl + "/get/income", { limit: limit });
+  return request.then((response) => response.data);
+};
+
+export const getExpenseTransactions = async (limit: number) => {
+  const request = axios.post(baseUrl + "/get/expense", { limit: limit });
+  return request.then((response) => response.data);
+};
+
 export const create = async (newObject: Transaction) => {
   const request = axios.post(baseUrl, newObject);
   return request.then((response) => response.data);
@@ -19,5 +29,15 @@ export const getTransactionById = async (id: string) => {
 
 export const getCount = async () => {
   const request = axios.get(baseUrl + "/count");
+  return request.then((response) => response.data);
+};
+
+export const getIncomeCount = async () => {
+  const request = axios.get(baseUrl + "/count/income");
+  return request.then((response) => response.data);
+};
+
+export const getExpenseCount = async () => {
+  const request = axios.get(baseUrl + "/count/expense");
   return request.then((response) => response.data);
 };

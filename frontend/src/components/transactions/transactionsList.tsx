@@ -2,15 +2,15 @@ import styled from "@emotion/styled";
 import { Transaction } from "../../types/transaction";
 import TransactionCard from "./transactionCard";
 import SeeMoreButton from "./seeMoreButton";
-import { useEffect, useState } from "react";
-import { getCount, getTransactions } from "../../api/transactions";
 import { setLimit } from "../slice/transactionLimitSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
-import BarChart from "../visualisations/barChart";
+import { css } from "@emotion/react";
 
-const ListContainer = styled("div")`
-  max-height: 390px;
+const ListContainer = styled.div<{ cardCount: number }>`
+  ${(props) => css`
+    max-height: ${props.cardCount * 195}px;
+  `}
   overflow-y: auto;
 
   /* Custom scrollbar styles */
@@ -33,32 +33,27 @@ const ListContainer = styled("div")`
     background-color: #555;
   }
 `;
-const TransactionsList = () => {
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [transactionsCount, setTransactionsCount] = useState<number>(0);
+interface Props {
+  transactions: Transaction[];
+  transactionsCount: number;
+  cardCount: number;
+}
 
+const TransactionsList: React.FC<Props> = ({
+  transactions,
+  transactionsCount,
+  cardCount,
+}) => {
   const limit = useSelector((state: RootState) => state.limit.limit);
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    getCount().then((data) => {
-      setTransactionsCount(data[0].count);
-    });
-  }, []);
-
-  useEffect(() => {
-    getTransactions(limit).then((data) => {
-      setTransactions(data);
-    });
-  }, [limit]);
 
   const handleSeeMoreClick = () => {
     dispatch(setLimit(limit + 5));
   };
 
   return (
-    <ListContainer>
+    <ListContainer cardCount={cardCount}>
       {transactions.map((tran) => (
         <TransactionCard key={tran.id} transaction={tran} />
       ))}

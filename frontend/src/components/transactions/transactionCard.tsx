@@ -1,4 +1,3 @@
-import { Paper } from "@mui/material";
 import { Transaction } from "../../types/transaction";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
@@ -13,7 +12,7 @@ const TransactionContainer = styled(Link)`
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   text-decoration: none;
   border-radius: 5px;
 `;

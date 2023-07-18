@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Paper } from "@mui/material";
+import { Paper, css } from "@mui/material";
 
 const Balance = styled(Paper)`
   width: 70%;
@@ -16,17 +16,26 @@ const BalanceTitle = styled("p")`
   margin-bottom: 0%;
 `;
 
-const BalanceNumber = styled("p")`
+const BalanceNumber = styled("p")<{ color: string }>`
+  ${(props) => css`
+    color: ${props.color};
+  `}
   font-size: 64px;
-  color: white;
+
   margin-top: 20px;
 `;
 
-const BalanceCard = ({ balance }: { balance: number }) => {
+interface Props {
+  balance: string;
+  title: string;
+  color: string;
+}
+
+const BalanceCard: React.FC<Props> = ({ balance, title, color }) => {
   return (
     <Balance variant="outlined">
-      <BalanceTitle>Balance</BalanceTitle>
-      <BalanceNumber>${balance}</BalanceNumber>
+      <BalanceTitle>{title}</BalanceTitle>
+      <BalanceNumber color={color}>{balance}</BalanceNumber>
     </Balance>
   );
 };

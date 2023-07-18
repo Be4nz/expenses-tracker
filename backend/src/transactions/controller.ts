@@ -69,6 +69,36 @@ const getTransactionsCount = (req: Request, res: Response) => {
   });
 };
 
+const getIncomeTransactionsCount = (req: Request, res: Response) => {
+  pool.query(queries.getIncomeTransactionsCount, (error, results) => {
+    if (error) throw error;
+    res.status(200).json(results.rows);
+  });
+};
+
+const getExpenseTransactionsCount = (req: Request, res: Response) => {
+  pool.query(queries.getExpenseTransactionsCount, (error, results) => {
+    if (error) throw error;
+    res.status(200).json(results.rows);
+  });
+};
+
+const getExpenseTransactions = (req: Request, res: Response) => {
+  const { limit } = req.body;
+  pool.query(queries.getExpenseTransactions, [limit], (error, results) => {
+    if (error) throw error;
+    res.status(200).json(results.rows);
+  });
+};
+
+const getIncomeTransactions = (req: Request, res: Response) => {
+  const { limit } = req.body;
+  pool.query(queries.getIncomeTransactions, [limit], (error, results) => {
+    if (error) throw error;
+    res.status(200).json(results.rows);
+  });
+};
+
 export default {
   getTransactions,
   getTransactionById,
@@ -77,4 +107,8 @@ export default {
   getIncome,
   getExpense,
   getTransactionsCount,
+  getIncomeTransactionsCount,
+  getExpenseTransactionsCount,
+  getExpenseTransactions,
+  getIncomeTransactions,
 };

@@ -45,11 +45,11 @@ const OverviewCards = ({
   return (
     <Container>
       <Card variant="outlined">
-        <CardTitle>income</CardTitle>
+        <CardTitle>Income</CardTitle>
         <Income>+${income}</Income>
       </Card>
       <Card variant="outlined">
-        <CardTitle>expense</CardTitle>
+        <CardTitle>Expense</CardTitle>
         <Expense>-${expense}</Expense>
       </Card>
     </Container>

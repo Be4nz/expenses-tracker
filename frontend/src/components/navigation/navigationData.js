@@ -1,5 +1,7 @@
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import HistoryIcon from "@mui/icons-material/History";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
 export const NavData = [
   {
@@ -13,5 +15,17 @@ export const NavData = [
     text: "History",
     icon: <HistoryIcon fontSize="large" />,
     link: "/history",
+  },
+  {
+    id: 3,
+    text: "All income",
+    icon: <ArrowUpwardIcon fontSize="large" />,
+    link: "/income",
+  },
+  {
+    id: 4,
+    text: "All expense",
+    icon: <ArrowDownwardIcon fontSize="large" />,
+    link: "/expense",
   },
 ];
