@@ -1,8 +1,9 @@
-const getTransactions = "SELECT * FROM transactions LIMIT $1";
+const getTransactions =
+  "SELECT * FROM transactions ORDER BY date DESC LIMIT $1";
 const getIncomeTransactions =
-  "SELECT * FROM transactions WHERE type = 'INCOME' LIMIT $1";
+  "SELECT * FROM transactions WHERE type = 'INCOME' ORDER BY date DESC LIMIT $1";
 const getExpenseTransactions =
-  "SELECT * FROM transactions WHERE type = 'EXPENSE' LIMIT $1";
+  "SELECT * FROM transactions WHERE type = 'EXPENSE' ORDER BY date DESC LIMIT $1";
 
 const getTransactionById = "SELECT * FROM transactions WHERE id = $1";
 const addTransaction =
@@ -18,6 +19,8 @@ const getIncomeTransactionsCount =
   "SELECT COUNT(id) FROM transactions WHERE type = 'INCOME'";
 const getExpenseTransactionsCount =
   "SELECT COUNT(id) FROM transactions WHERE type = 'EXPENSE'";
+const updateTransaction =
+  "UPDATE transactions SET title = $1, date = $2, tag = $3, type = $4, amount = $5, notes = $6 WHERE id = $7";
 
 export default {
   getTransactions,
@@ -31,4 +34,5 @@ export default {
   getIncomeTransactions,
   getIncomeTransactionsCount,
   getExpenseTransactionsCount,
+  updateTransaction,
 };

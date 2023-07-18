@@ -99,6 +99,19 @@ const getIncomeTransactions = (req: Request, res: Response) => {
   });
 };
 
+const updateTransaction = (req: Request, res: Response) => {
+  const { title, date, tag, type, amount, notes } = req.body;
+  const id = parseInt(req.params.id);
+  pool.query(
+    queries.updateTransaction,
+    [title, date, tag, type, amount, notes, id],
+    (error, results) => {
+      if (error) throw error;
+      res.status(201).send("Transaction updated");
+    }
+  );
+};
+
 export default {
   getTransactions,
   getTransactionById,
@@ -111,4 +124,5 @@ export default {
   getExpenseTransactionsCount,
   getExpenseTransactions,
   getIncomeTransactions,
+  updateTransaction,
 };

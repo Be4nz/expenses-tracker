@@ -6,7 +6,7 @@ import {
   styled,
 } from "@mui/material";
 import { Form, Formik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Transaction } from "../../types/transaction";
 import dayjs from "dayjs";
 import { DatePicker } from "@mui/x-date-pickers";
@@ -63,10 +63,12 @@ const Button = styled("button")`
 
 interface Props {
   onSubmit: (transaction: Transaction) => void;
+  toEdit?: Transaction;
 }
 
-const CreateTransactionForm: React.FC<Props> = ({ onSubmit }) => {
-  const [transaction, setTransaction] = useState<Transaction>({
+const CreateTransactionForm: React.FC<Props> = ({
+  onSubmit,
+  toEdit = {
     id: 0,
     title: "",
     amount: 0,
@@ -74,7 +76,9 @@ const CreateTransactionForm: React.FC<Props> = ({ onSubmit }) => {
     tag: "",
     date: new Date(),
     notes: "",
-  });
+  },
+}) => {
+  const [transaction, setTransaction] = useState<Transaction>(toEdit);
 
   const handleChange = (
     e:

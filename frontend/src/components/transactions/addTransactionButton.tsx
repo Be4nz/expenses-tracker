@@ -2,6 +2,10 @@ import React from "react";
 import CreateTransactionModal from "./createTransactionModal";
 import { FaPlus } from "react-icons/fa";
 import styled from "@emotion/styled";
+import { create } from "../../api/transactions";
+import { useDispatch } from "react-redux";
+import { Transaction } from "../../types/transaction";
+import { setLimit } from "../slice/transactionLimitSlice";
 
 const Container = styled.div`
   display: flex;
@@ -30,12 +34,28 @@ const AddTransactionButton = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
 
+  const dispatch = useDispatch();
+
+  const onCreateSubmit = (transaction: Transaction) => {
+    create(transaction).then(() => {
+      dispatch(setLimit(0));
+      setTimeout(() => {
+        dispatch(setLimit(5));
+      }, 2);
+    });
+    setOpen(false);
+  };
+
   return (
     <Container>
       <Button onClick={handleOpen}>
         <FaPlus />
       </Button>
-      <CreateTransactionModal open={open} setOpen={setOpen} />
+      <CreateTransactionModal
+        open={open}
+        setOpen={setOpen}
+        onCreateSubmit={onCreateSubmit}
+      />
     </Container>
   );
 };

@@ -24,29 +24,29 @@ const Container = styled(Paper)`
 const CreateTransactionModal = ({
   open,
   setOpen,
+  onCreateSubmit,
+  toEdit = {
+    id: 0,
+    title: "",
+    amount: 0,
+    type: "INCOME",
+    tag: "",
+    date: new Date(),
+    notes: "",
+  },
 }: {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  onCreateSubmit: (transaction: Transaction) => void;
+  toEdit?: Transaction;
 }) => {
   const handleClose = () => setOpen(false);
-
-  const dispatch = useDispatch();
-
-  const onSubmit = (transaction: Transaction) => {
-    create(transaction).then(() => {
-      dispatch(setLimit(0));
-      setTimeout(() => {
-        dispatch(setLimit(5));
-      }, 2);
-    });
-    handleClose();
-  };
 
   return (
     <div>
       <Modal open={open} onClose={handleClose}>
         <Container variant="outlined">
-          <CreateTransactionForm onSubmit={onSubmit} />
+          <CreateTransactionForm onSubmit={onCreateSubmit} toEdit={toEdit} />
         </Container>
       </Modal>
     </div>

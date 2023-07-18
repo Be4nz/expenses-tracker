@@ -17,5 +17,6 @@ router.get(
 );
 router.post("/transactions/get/income", controller.getIncomeTransactions);
 router.post("/transactions/get/expense", controller.getExpenseTransactions);
+router.put("/transactions/single/:id", controller.updateTransaction);
 
 export default router;

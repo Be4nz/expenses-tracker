@@ -41,3 +41,16 @@ export const getExpenseCount = async () => {
   const request = axios.get(baseUrl + "/count/expense");
   return request.then((response) => response.data);
 };
+
+export const deleteTransaction = async (id: string) => {
+  const request = axios.delete(baseUrl + "/single/" + id);
+  return request.then((response) => response.data);
+};
+
+export const updateTransaction = async (
+  id: string,
+  transaction: Transaction
+) => {
+  const request = axios.put(baseUrl + "/single/" + id, transaction);
+  return request.then((response) => response.data);
+};
