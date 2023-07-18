@@ -2,9 +2,6 @@ import { Modal, Paper, styled } from "@mui/material";
 import React from "react";
 import CreateTransactionForm from "./createTransactionForm";
 import { Transaction } from "../../types/transaction";
-import { create } from "../../api/transactions";
-import { setLimit } from "../slice/transactionLimitSlice";
-import { useDispatch } from "react-redux";
 
 const Container = styled(Paper)`
   position: absolute;

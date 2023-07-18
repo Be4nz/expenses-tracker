@@ -10,7 +10,6 @@ import LoadingWrapper from "../components/loadingWrapper";
 import { getIncomeCount, getIncomeTransactions } from "../api/transactions";
 import { Transaction } from "../types/transaction";
 import { setLimit } from "../components/slice/transactionLimitSlice";
-import BarChart from "../components/visualisations/barChart";
 
 const AllIncome = () => {
   const [income, setIncome] = useState<number>(0);
@@ -54,7 +53,6 @@ const AllIncome = () => {
         transactionsCount={transactionsCount}
         cardCount={3}
       />
-
       <AddTransactionButton />
     </LoadingWrapper>
   );

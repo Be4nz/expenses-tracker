@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Transaction } from "../types/transaction";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   deleteTransaction,
@@ -49,7 +49,12 @@ const TransactionDetails = () => {
 
   const handleDelete = () => {
     if (id) {
-      deleteTransaction(id);
+      deleteTransaction(id).then(() => {
+        dispatch(setLimit(0));
+        setTimeout(() => {
+          dispatch(setLimit(5));
+        }, 2);
+      });
       navigate("/current");
     }
   };
