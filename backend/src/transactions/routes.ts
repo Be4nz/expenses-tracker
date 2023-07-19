@@ -18,5 +18,7 @@ router.get(
 router.post("/transactions/get/income", controller.getIncomeTransactions);
 router.post("/transactions/get/expense", controller.getExpenseTransactions);
 router.put("/transactions/single/:id", controller.updateTransaction);
+router.get("/transactions/date/min", controller.getMinDate);
+router.get("/transactions/date/max", controller.getMaxDate);
 
 export default router;

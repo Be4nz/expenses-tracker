@@ -15,7 +15,6 @@ const ListContainer = styled.div<{ cardCount: number }>`
 
   /* Custom scrollbar styles */
   ::-webkit-scrollbar {
-    margin-right: 10px;
     width: 8px;
   }
 

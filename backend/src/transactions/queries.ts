@@ -22,6 +22,9 @@ const getExpenseTransactionsCount =
 const updateTransaction =
   "UPDATE transactions SET title = $1, date = $2, tag = $3, type = $4, amount = $5, notes = $6 WHERE id = $7";
 
+const minDate = "SELECT MIN(date) FROM transactions";
+const maxDate = "SELECT MAX(date) FROM transactions";
+
 export default {
   getTransactions,
   getTransactionById,
@@ -35,4 +38,6 @@ export default {
   getIncomeTransactionsCount,
   getExpenseTransactionsCount,
   updateTransaction,
+  minDate,
+  maxDate,
 };

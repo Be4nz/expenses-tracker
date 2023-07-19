@@ -10,12 +10,14 @@ import { setLimit } from "../slice/transactionLimitSlice";
 const Container = styled.div`
   display: flex;
   justify-content: flex-end;
+  position: absolute;
+  bottom: 20px;
+  right: 10px;
+  transform: translate(-50%, -50%);
+  z-index: 3;
 `;
 
 const Button = styled.button`
-  position: absolute;
-  right: 0px;
-  transform: translate(-100%, -50%);
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -27,7 +29,6 @@ const Button = styled.button`
   justify-content: center;
   align-items: center;
   font-size: 20px;
-  z-index: 3;
 `;
 
 const AddTransactionButton = () => {

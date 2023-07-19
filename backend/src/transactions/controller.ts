@@ -69,6 +69,20 @@ const getTransactionsCount = (req: Request, res: Response) => {
   });
 };
 
+const getMinDate = (req: Request, res: Response) => {
+  pool.query(queries.minDate, (error, results) => {
+    if (error) throw error;
+    res.status(200).json(results.rows);
+  });
+};
+
+const getMaxDate = (req: Request, res: Response) => {
+  pool.query(queries.maxDate, (error, results) => {
+    if (error) throw error;
+    res.status(200).json(results.rows);
+  });
+};
+
 const getIncomeTransactionsCount = (req: Request, res: Response) => {
   pool.query(queries.getIncomeTransactionsCount, (error, results) => {
     if (error) throw error;
@@ -125,4 +139,6 @@ export default {
   getExpenseTransactions,
   getIncomeTransactions,
   updateTransaction,
+  getMinDate,
+  getMaxDate,
 };
