@@ -39,6 +39,7 @@ const AddTransactionButton = () => {
 
   const onCreateSubmit = (transaction: Transaction) => {
     create(transaction).then(() => {
+      console.log(transaction.date);
       dispatch(setLimit(0));
       setTimeout(() => {
         dispatch(setLimit(5));

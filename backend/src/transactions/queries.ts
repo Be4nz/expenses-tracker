@@ -24,6 +24,8 @@ const updateTransaction =
 
 const minDate = "SELECT MIN(date) FROM transactions";
 const maxDate = "SELECT MAX(date) FROM transactions";
+const getTransactionBetweenDates =
+  "SELECT * FROM transactions WHERE date BETWEEN $1 AND $2";
 
 export default {
   getTransactions,
@@ -40,4 +42,5 @@ export default {
   updateTransaction,
   minDate,
   maxDate,
+  getTransactionBetweenDates,
 };

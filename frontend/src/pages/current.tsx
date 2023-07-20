@@ -21,26 +21,14 @@ const Current = () => {
   const [transactionsCount, setTransactionsCount] = useState<number>(0);
 
   useEffect(() => {
-    getCount().then((data) => {
-      setTransactionsCount(data[0].count);
-    });
-  }, []);
-
-  useEffect(() => {
     setLoading(true);
-    getTransactions(limit).then((data) => {
-      setTransactions(data);
-    });
-    getIncome()
-      .then((data) => {
-        setIncome(parseInt(data[0].sum) || 0);
-      })
-      .catch(() => {
-        setError(true);
-      });
-    getExpense()
-      .then((data) => {
-        setExpense(parseInt(data[0].sum) || 0);
+
+    Promise.all([getTransactions(limit), getIncome(), getExpense(),getCount()])
+      .then(([transactions, income, expense,count]) => {
+        setTransactions(transactions);
+        setIncome(parseInt(income[0].sum) || 0);
+        setExpense(parseInt(expense[0].sum) || 0);
+        setTransactionsCount(count[0].count);
       })
       .catch(() => {
         setError(true);

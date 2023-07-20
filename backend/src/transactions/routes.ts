@@ -20,5 +20,6 @@ router.post("/transactions/get/expense", controller.getExpenseTransactions);
 router.put("/transactions/single/:id", controller.updateTransaction);
 router.get("/transactions/date/min", controller.getMinDate);
 router.get("/transactions/date/max", controller.getMaxDate);
+router.post("/transactions/date/get", controller.getTransactionsBetweenDates);
 
 export default router;

@@ -126,6 +126,18 @@ const updateTransaction = (req: Request, res: Response) => {
   );
 };
 
+const getTransactionsBetweenDates = (req: Request, res: Response) => {
+  const { startDate, endDate } = req.body;
+  pool.query(
+    queries.getTransactionBetweenDates,
+    [startDate, endDate],
+    (error, results) => {
+      if (error) throw error;
+      res.status(200).json(results.rows);
+    }
+  );
+};
+
 export default {
   getTransactions,
   getTransactionById,
@@ -141,4 +153,5 @@ export default {
   updateTransaction,
   getMinDate,
   getMaxDate,
+  getTransactionsBetweenDates,
 };

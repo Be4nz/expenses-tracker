@@ -13,9 +13,15 @@ import {
   BarElement,
   LineElement,
 } from "chart.js";
+import styled from "@emotion/styled";
 
+const Container = styled("div")`
+  width: 70%;
+  height: 300px;
+  margin: auto;
+`;
 interface Props {
-  data: Transaction[];
+  data: { amount: number; date?: Date }[];
 }
 
 const BarChart: React.FC<Props> = ({ data }) => {
@@ -31,28 +37,31 @@ const BarChart: React.FC<Props> = ({ data }) => {
     LineController
   );
 
-  let expenseData = data.filter((data) => data.type === "EXPENSE");
-  let incomeData = data.filter((data) => data.type === "INCOME");
-
   const chartData = {
-    labels: expenseData.map((expense) => expense.date),
+    labels: data.map((data) => data.date),
     datasets: [
       {
-        label: "Expenses",
-        data: expenseData.map((expense) => expense.amount),
-        borderColor: "#b84f4f",
-        backgroundColor: "#b84f4f",
-      },
-      {
-        label: "Incomes",
-        data: incomeData.map((expense) => expense.amount),
-        borderColor: "#72c675",
-        backgroundColor: "#72c675",
+        label: "Balance",
+        data: data.map((expense) => expense.amount),
+        borderColor: "rgb(204, 204, 204)",
+        backgroundColor: "rgb(204, 204, 204)",
       },
     ],
   };
 
-  return <Line data={chartData} />;
+  const options = {
+    scales: {
+      x: {
+        display: false, // Hide x-axis labels
+      },
+    },
+  };
+
+  return (
+    <Container>
+      <Line data={chartData} options={options} />
+    </Container>
+  );
 };
 
 export default BarChart;

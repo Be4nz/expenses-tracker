@@ -14,6 +14,7 @@ import NavigationBar from "./components/navigation/navigationBar";
 import TransactionDetails from "./pages/transactionDetails";
 import AllIncome from "./pages/allIncome";
 import AllExpense from "./pages/allExpense";
+import MonthDetails from "./pages/monthDetails";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path="/income" element={<AllIncome />} />
             <Route path="/expense" element={<AllExpense />} />
             <Route path="/transactions/:id" element={<TransactionDetails />} />
+            <Route path="/history/:year/:month" element={<MonthDetails />} />
             <Route path="*" element={<Navigate to="/current" replace />} />
           </Routes>
         </LocalizationProvider>
