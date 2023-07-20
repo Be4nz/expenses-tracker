@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import BalanceCard from "../components/transactions/balanceCard";
-import RecentTransactionsTitle from "../components/transactions/recentTransactionsTitle";
-import OverviewCards from "../components/transactions/overviewCards";
 import TransactionsList from "../components/transactions/transactionsList";
 import AddTransactionButton from "../components/transactions/addTransactionButton";
-import { getExpense, getIncome } from "../api/balance";
+import { getExpense } from "../api/balance";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
 import LoadingWrapper from "../components/loadingWrapper";
 import { getExpenseCount, getExpenseTransactions } from "../api/transactions";
 import { Transaction } from "../types/transaction";
 import { setLimit } from "../components/slice/transactionLimitSlice";
+import { SubTitle } from "../components/styled/SubTitle";
 
 const AllExpense = () => {
   const [expense, setExpense] = useState<number>(0);
@@ -52,7 +51,7 @@ const AllExpense = () => {
         color={"#B84F4F"}
         title={"Expense"}
       />
-      <RecentTransactionsTitle />
+      <SubTitle>Recent transactions</SubTitle>
       <TransactionsList
         transactions={transactions}
         transactionsCount={transactionsCount}

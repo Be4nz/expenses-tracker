@@ -5,9 +5,22 @@ import { Transaction } from "../types/transaction";
 import LoadingWrapper from "../components/loadingWrapper";
 import TransactionsList from "../components/transactions/transactionsList";
 import { Message } from "../components/styled/Message";
-import BarChart from "../components/visualisations/barChart";
+import BalanceLineChart from "../components/visualisations/BalanceLineChart";
 import { Title } from "../components/styled/Title";
 import { GetMonthName } from "../utils/dateUtils";
+import styled from "@emotion/styled";
+import ExpensesPieChart from "../components/visualisations/ExpensesPieChart";
+import { SubTitle } from "../components/styled/SubTitle";
+
+const ChartContainer = styled("div")`
+  width: 60%;
+  height: 300px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+`;
 
 const MonthDetails = () => {
   const [transactions, setTransactions] = useState<Transaction[]>();
@@ -47,8 +60,11 @@ const MonthDetails = () => {
         date: transactions[i - 1].date,
       });
     }
-    console.log(balanceChanges);
     return balanceChanges;
+  };
+
+  const GetExpenses = (transactions: Transaction[]) => {
+    return transactions.filter((trans) => trans.type === "EXPENSE");
   };
 
   return (
@@ -56,7 +72,11 @@ const MonthDetails = () => {
       {transactions && month && transactions.length > 0 ? (
         <>
           <Title>{year + " " + GetMonthName(parseInt(month))}</Title>
-          <BarChart data={GetBalanceChanges(transactions)} />
+          <ChartContainer>
+            <BalanceLineChart data={GetBalanceChanges(transactions)} />
+            <ExpensesPieChart data={GetExpenses(transactions)} />
+          </ChartContainer>
+          <SubTitle>Transactions</SubTitle>
           <TransactionsList
             transactions={transactions}
             transactionsCount={transactions.length}

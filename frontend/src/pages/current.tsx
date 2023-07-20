@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import BalanceCard from "../components/transactions/balanceCard";
-import RecentTransactionsTitle from "../components/transactions/recentTransactionsTitle";
 import OverviewCards from "../components/transactions/overviewCards";
 import TransactionsList from "../components/transactions/transactionsList";
 import AddTransactionButton from "../components/transactions/addTransactionButton";
@@ -10,6 +9,7 @@ import { RootState } from "../store";
 import LoadingWrapper from "../components/loadingWrapper";
 import { getCount, getTransactions } from "../api/transactions";
 import { Transaction } from "../types/transaction";
+import { SubTitle } from "../components/styled/SubTitle";
 
 const Current = () => {
   const [income, setIncome] = useState<number>(0);
@@ -23,8 +23,8 @@ const Current = () => {
   useEffect(() => {
     setLoading(true);
 
-    Promise.all([getTransactions(limit), getIncome(), getExpense(),getCount()])
-      .then(([transactions, income, expense,count]) => {
+    Promise.all([getTransactions(limit), getIncome(), getExpense(), getCount()])
+      .then(([transactions, income, expense, count]) => {
         setTransactions(transactions);
         setIncome(parseInt(income[0].sum) || 0);
         setExpense(parseInt(expense[0].sum) || 0);
@@ -42,7 +42,7 @@ const Current = () => {
     <LoadingWrapper loading={loading} error={error}>
       <BalanceCard balance={"$" + balance} color="white" title="Balance" />
       <OverviewCards income={income} expense={expense} />
-      <RecentTransactionsTitle />
+      <SubTitle>Recent transactions</SubTitle>
       <TransactionsList
         transactions={transactions}
         transactionsCount={transactionsCount}

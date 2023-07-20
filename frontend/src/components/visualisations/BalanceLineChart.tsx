@@ -1,5 +1,4 @@
-import { Bar, Line } from "react-chartjs-2";
-import { Transaction } from "../../types/transaction";
+import { Line } from "react-chartjs-2";
 import React from "react";
 import {
   Chart,
@@ -13,18 +12,12 @@ import {
   BarElement,
   LineElement,
 } from "chart.js";
-import styled from "@emotion/styled";
 
-const Container = styled("div")`
-  width: 70%;
-  height: 300px;
-  margin: auto;
-`;
 interface Props {
   data: { amount: number; date?: Date }[];
 }
 
-const BarChart: React.FC<Props> = ({ data }) => {
+const BalanceLineChart: React.FC<Props> = ({ data }) => {
   Chart.register(
     CategoryScale,
     LinearScale,
@@ -57,11 +50,7 @@ const BarChart: React.FC<Props> = ({ data }) => {
     },
   };
 
-  return (
-    <Container>
-      <Line data={chartData} options={options} />
-    </Container>
-  );
+  return <Line data={chartData} options={options} />;
 };
 
-export default BarChart;
+export default BalanceLineChart;

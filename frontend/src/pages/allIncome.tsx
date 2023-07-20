@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import BalanceCard from "../components/transactions/balanceCard";
-import RecentTransactionsTitle from "../components/transactions/recentTransactionsTitle";
 import TransactionsList from "../components/transactions/transactionsList";
 import AddTransactionButton from "../components/transactions/addTransactionButton";
 import { getIncome } from "../api/balance";
@@ -10,6 +9,7 @@ import LoadingWrapper from "../components/loadingWrapper";
 import { getIncomeCount, getIncomeTransactions } from "../api/transactions";
 import { Transaction } from "../types/transaction";
 import { setLimit } from "../components/slice/transactionLimitSlice";
+import { SubTitle } from "../components/styled/SubTitle";
 
 const AllIncome = () => {
   const [income, setIncome] = useState<number>(0);
@@ -47,7 +47,7 @@ const AllIncome = () => {
   return (
     <LoadingWrapper loading={loading} error={error}>
       <BalanceCard balance={"+$" + income} color={"#72C675"} title={"Income"} />
-      <RecentTransactionsTitle />
+      <SubTitle>Recent transactions</SubTitle>
       <TransactionsList
         transactions={transactions}
         transactionsCount={transactionsCount}

@@ -4,6 +4,8 @@ import { Title } from "../components/styled/Title";
 import { getMinDate, getMaxDate } from "../api/history";
 import LoadingWrapper from "../components/loadingWrapper";
 import { ListContainer } from "../components/styled/ListContainer";
+import { Message } from "../components/styled/Message";
+import { max } from "date-fns";
 
 interface MonthInRange {
   year: number;
@@ -35,17 +37,16 @@ const History = () => {
 
   useEffect(() => {
     setLoading(true);
-    console.log(new Date(2023, 6));
-    console.log(new Date(2023, 5));
 
     Promise.all([getMaxDate(), getMinDate()])
       .then(([maxData, minData]) => {
-        const monthsInRange = getMonthsInRange(
-          new Date(minData[0].min),
-          new Date(maxData[0].max)
-        );
-        console.log(monthsInRange);
-        setMonthsInRange(monthsInRange);
+        if (maxData[0].max !== null && minData[0].min !== null) {
+          const monthsInRange = getMonthsInRange(
+            new Date(minData[0].min),
+            new Date(maxData[0].max)
+          );
+          setMonthsInRange(monthsInRange);
+        }
       })
       .catch(() => {
         setError(true);
@@ -59,14 +60,17 @@ const History = () => {
     <LoadingWrapper loading={loading} error={error}>
       <Title>History</Title>
       <ListContainer cardCount={4}>
-        {monthsInRange &&
+        {monthsInRange && monthsInRange.length > 0 ? (
           monthsInRange.map((monthInRange) => (
             <MonthCard
               key={monthInRange.year.toString() + monthInRange.month.toString()}
               year={monthInRange.year}
               month={monthInRange.month}
             />
-          ))}
+          ))
+        ) : (
+          <Message>Enter your first transaction to see the History</Message>
+        )}
       </ListContainer>
     </LoadingWrapper>
   );

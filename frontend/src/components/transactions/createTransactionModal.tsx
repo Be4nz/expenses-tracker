@@ -27,7 +27,7 @@ const CreateTransactionModal = ({
     title: "",
     amount: 0,
     type: "INCOME",
-    tag: "",
+    tag: "Other",
     date: new Date(),
     notes: "",
   },

@@ -73,6 +73,7 @@ const CreateTransactionForm: React.FC<Props> = ({ onSubmit, toEdit }) => {
     e:
       | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
       | SelectChangeEvent<"INCOME" | "EXPENSE">
+      | SelectChangeEvent<string>
   ) => {
     const { name, value } = e.target;
     setTransaction((prevTransaction) => ({
@@ -126,14 +127,27 @@ const CreateTransactionForm: React.FC<Props> = ({ onSubmit, toEdit }) => {
             </Select>
           </InputLine>
           <InputLine>
-            <TextField
-              name="tag"
+            <Select
               label="Tag"
+              name="tag"
               value={transaction.tag}
               onChange={handleChange}
               onBlur={handleBlur}
               required
-            />
+            >
+              <MenuItem value={"Food"}>Food</MenuItem>
+              <MenuItem value={"Utility"}>Utility</MenuItem>
+              <MenuItem value={"Housing"}>Housing</MenuItem>
+              <MenuItem value={"Transport"}>Transport</MenuItem>
+              <MenuItem value={"Personal Spendings"}>
+                Personal Spendings
+              </MenuItem>
+              <MenuItem value={"Medical"}>Medical</MenuItem>
+              <MenuItem value={"Investments"}>Investments</MenuItem>
+              <MenuItem value={"Salary"}>Salary</MenuItem>
+              <MenuItem value={"Retail"}>Retail</MenuItem>
+              <MenuItem value={"Other"}>Other</MenuItem>
+            </Select>
           </InputLine>
           <InputLine>
             <DatePicker

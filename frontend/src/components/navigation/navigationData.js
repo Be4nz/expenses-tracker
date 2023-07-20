@@ -6,7 +6,7 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 export const NavData = [
   {
     id: 1,
-    text: "Current month",
+    text: "Home",
     icon: <LibraryBooksIcon fontSize="large" />,
     link: "/current",
   },
