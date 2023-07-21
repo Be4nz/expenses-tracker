@@ -1,36 +1,56 @@
 import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
-import { createTransactionsTable } from "./database/createTables";
+import { createTables } from "./database/createTables";
 import transactionRouter from "./transactions/routes";
+import loginRouter from "./login/routes";
+import passport from "passport";
+const passportLocal = require("passport-local").Strategy;
+import cookieParser from "cookie-parser";
+import session from "express-session";
+import * as bodyParser from "body-parser";
+import { connectClient, endClient } from "./database/pgConnections";
+import flash from "express-flash";
+const initializePassport = require("./passportConfig");
+
+initializePassport(passport);
 
 const app = express();
 
-createTransactionsTable();
+createTables();
 
-const requestLogger = (
-  request: Request,
-  response: Response,
-  next: NextFunction
-) => {
-  console.log("Method:", request.method);
-  console.log("Path:  ", request.path);
-  console.log("Body:  ", request.body);
-  console.log("---");
-  next();
-};
-
-const unknownEndpoint = (request: Request, response: Response) => {
-  response.status(404).send({ error: "unknown endpoint" });
-};
-
-app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 app.use(express.json());
-app.use(requestLogger);
+app.use(
+  session({
+    secret: "secretcode",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+app.use(cookieParser("secretcode"));
 
+//Routes
 app.use("", transactionRouter);
+loginRouter.post(
+  "/login",
+  passport.authenticate("local", {
+    successRedirect: "/current",
+    failureRedirect: "/current",
+  })
+);
+app.use("/auth", loginRouter);
 
-app.use(unknownEndpoint);
-
+//Start server
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
