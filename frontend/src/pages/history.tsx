@@ -5,6 +5,7 @@ import { getMinDate, getMaxDate } from "../api/history";
 import LoadingWrapper from "../components/loadingWrapper";
 import { ListContainer } from "../components/styled/ListContainer";
 import { Message } from "../components/styled/Message";
+import { max } from "date-fns";
 
 interface MonthInRange {
   year: number;
