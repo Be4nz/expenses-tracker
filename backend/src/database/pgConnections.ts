@@ -8,14 +8,6 @@ export const client = new Client({
   port: 5432,
 });
 
-export const connectClient = () => {
-  client.connect();
-};
-
-export const endClient = () => {
-  client.end();
-};
-
 export const pool = new Pool({
   host: "127.0.0.1",
   user: "postgres",

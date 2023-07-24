@@ -15,7 +15,6 @@ import TransactionDetails from "./pages/transactionDetails";
 import AllIncome from "./pages/allIncome";
 import AllExpense from "./pages/allExpense";
 import MonthDetails from "./pages/monthDetails";
-import Login from "./pages/login";
 
 function App() {
   return (
@@ -28,7 +27,6 @@ function App() {
             <Route path="/history" element={<History />} />
             <Route path="/income" element={<AllIncome />} />
             <Route path="/expense" element={<AllExpense />} />
-            <Route path="/login" element={<Login />} />
             <Route path="/transactions/:id" element={<TransactionDetails />} />
             <Route path="/history/:year/:month" element={<MonthDetails />} />
             <Route path="*" element={<Navigate to="/current" replace />} />
