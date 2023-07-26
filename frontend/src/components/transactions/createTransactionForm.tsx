@@ -55,6 +55,8 @@ const CreateTransactionForm: React.FC<Props> = ({ onSubmit, toEdit }) => {
               value={transaction.amount}
               onChange={handleChange}
               onBlur={handleBlur}
+              type="number"
+              autoComplete="off"
               required
             />
           </InputLine>
@@ -114,6 +116,7 @@ const CreateTransactionForm: React.FC<Props> = ({ onSubmit, toEdit }) => {
               value={transaction.notes}
               onChange={handleChange}
               onBlur={handleBlur}
+              autoComplete="off"
             />
           </InputLine>
           <Button type="submit">Submit</Button>
