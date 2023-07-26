@@ -10,7 +10,6 @@ import Current from "./pages/current";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import History from "./pages/history";
-import NavigationBar from "./components/navigation/navigationBar";
 import TransactionDetails from "./pages/transactionDetails";
 import AllIncome from "./pages/allIncome";
 import AllExpense from "./pages/allExpense";
@@ -18,22 +17,16 @@ import MonthDetails from "./pages/monthDetails";
 import Login from "./pages/login";
 import Register from "./pages/register";
 import ProtectedRoute from "./utils/protectedRoute";
-import { checkAuthenticated } from "./api/authentication";
 
 function App() {
   return (
     <div>
       <Router>
-        <NavigationBar />
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <Routes>
             <Route
               path="/current"
-              element={
-                <ProtectedRoute>
-                  <Current />
-                </ProtectedRoute>
-              }
+              element={<ProtectedRoute children={<Current />} />}
             />
             <Route
               path="/history"

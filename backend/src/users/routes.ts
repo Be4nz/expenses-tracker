@@ -38,6 +38,8 @@ const loginRouter = (passport: PassportStatic) => {
 
   router.get("/checkNotAuthenticated", checkNotAuthenticated, (req, res) => {});
 
+  router.get("/getCurrent", controller.getUserId);
+
   return router;
 };
 

@@ -24,6 +24,6 @@ export const checkNotAuthenticated = (
     return next();
   }
   return res
-    .status(401)
+    .status(200)
     .json({ status: "fail", message: "User is not authenticated" });
 };

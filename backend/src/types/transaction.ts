@@ -6,6 +6,7 @@ export interface Transaction {
   type: TransactionType;
   amount: number;
   notes: string;
+  createdBy: number;
 }
 
 export type TransactionType = "INCOME" | "EXPENSE";

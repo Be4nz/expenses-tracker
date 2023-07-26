@@ -12,6 +12,7 @@ const Card = styled(Link)`
   justify-content: start;
   align-items: center;
   padding: 10px;
+  cursor: pointer;
 `;
 
 const IconContainer = styled("div")`
@@ -20,23 +21,27 @@ const IconContainer = styled("div")`
   align-items: center;
 `;
 
-const Text = styled("span")`
+const Button = styled("button")`
   font-size: 21px;
   color: white;
+  background-color: rgb(39, 38, 45);
+  border: none;
+  outline: none;
+  cursor: pointer;
 `;
 
-const NavUnitCard = ({
-  text,
-  icon,
-  link,
-}: {
+interface Props {
   text: string;
   icon: JSX.Element;
   link: string;
-}) => {
+  onClick?: () => void;
+}
+
+const NavUnitCard: React.FC<Props> = ({ text, icon, link, onClick }) => {
   return (
     <Card to={link}>
-      <IconContainer>{icon}</IconContainer> <Text>{text}</Text>
+      <IconContainer>{icon}</IconContainer>{" "}
+      <Button onClick={onClick}>{text}</Button>
     </Card>
   );
 };

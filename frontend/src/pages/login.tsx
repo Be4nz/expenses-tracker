@@ -1,78 +1,81 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { login } from "../api/login";
 import { useNavigate } from "react-router-dom";
+import styled from "@emotion/styled";
+import { Title } from "../components/styled/Title";
+import { LoginData } from "../types/login";
+import LoginForm from "../components/logins/loginForm";
+import { Paper } from "@mui/material";
 
-interface Error {
-  message: string;
-}
+const Button = styled("button")`
+  width: 150px;
+  height: 50px;
+  border-radius: 5px;
+  background-color: rgb(159, 159, 159);
+  color: rgb(39, 38, 45);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  margin-top: 50px;
+`;
+
+const Container = styled(Paper)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 600px;
+  width: 500px;
+  background-color: rgb(39, 38, 45);
+  color: white;
+  radius: 5px;
+`;
+
+const ErrorList = styled("ul")`
+  color: red;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+`;
 
 const Login: React.FC = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState<Error[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (data: LoginData) => {
+    const { email, password } = data;
 
     try {
-      const loginStatus = await login(email, password);
-      console.log(loginStatus);
-      if (loginStatus === 200) {
+      const loginResponse = await login(email, password);
+      if (loginResponse.status === 200) {
         navigate("/current");
       }
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        const errorData = error.response?.data;
-        if (errorData && Array.isArray(errorData.errors)) {
-          setErrors(errorData.errors);
-        }
-      } else {
-        console.error("Error:", error);
-      }
+      setError("Wrong email or password");
     }
   };
 
   return (
     <div>
-      <h1>Login</h1>
+      <Title>Login</Title>
 
-      <ul>
-        {errors &&
-          errors.map((error) => <li key={error.message}>{error.message}</li>)}
-      </ul>
-
-      <form onSubmit={handleSubmit}>
-        <div>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Password"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <div>
-          <input type="submit" value="Login" />
-        </div>
-
-        <a href="/register">Register</a>
-      </form>
+      <Container>
+        <LoginForm onSubmit={handleSubmit} />
+        <Button onClick={() => navigate("/register")}>Register Now</Button>
+      </Container>
+      <ErrorList>{<li>{error}</li>}</ErrorList>
     </div>
   );
 };

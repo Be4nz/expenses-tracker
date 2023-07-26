@@ -6,7 +6,6 @@ function initialize(passport) {
   console.log("Initialized");
 
   const authenticateUser = (email, password, done) => {
-    console.log(email, password);
     pool.query(
       `SELECT * FROM users WHERE email = $1`,
       [email],
@@ -14,14 +13,12 @@ function initialize(passport) {
         if (err) {
           throw err;
         }
-        console.log(results.rows);
 
         if (results.rows.length > 0) {
           const user = results.rows[0];
 
           bcrypt.compare(password, user.password, (err, isMatch) => {
             if (err) {
-              console.log(err);
             }
             if (isMatch) {
               return done(null, user);
@@ -60,7 +57,7 @@ function initialize(passport) {
       if (err) {
         return done(err);
       }
-      console.log(`ID is ${results.rows[0].id}`);
+
       return done(null, results.rows[0]);
     });
   });

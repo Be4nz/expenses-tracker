@@ -2,21 +2,7 @@ import { Modal, Paper, styled } from "@mui/material";
 import React from "react";
 import CreateTransactionForm from "./createTransactionForm";
 import { Transaction } from "../../types/transaction";
-
-const Container = styled(Paper)`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 600px;
-  width: 500px;
-  background-color: rgb(39, 38, 45);
-  color: white;
-  radius: 5px;
-`;
+import { Container } from "../styled/ModalContainer";
 
 const CreateTransactionModal = ({
   open,

@@ -1,8 +1,8 @@
 import React from "react";
 import { NavData } from "./navigationData";
 import NavUnitCard from "./navUnitCard";
+import LogoutIcon from "@mui/icons-material/Logout";
 import { logout } from "../../api/login";
-import { useNavigate } from "react-router-dom";
 
 interface props {
   isOpen: boolean;
@@ -10,7 +10,9 @@ interface props {
 }
 
 const SideNav: React.FC<props> = ({ isOpen, toggleOpen }) => {
-  const navigate = useNavigate();
+  const handleLogout = async () => {
+    await logout();
+  };
 
   const sidebarClass = isOpen ? "sidebar open" : "sidebar";
   return (
@@ -23,14 +25,12 @@ const SideNav: React.FC<props> = ({ isOpen, toggleOpen }) => {
           link={data.link}
         />
       ))}
-      <button
-        onClick={() => {
-          logout();
-          navigate("/login");
-        }}
-      >
-        logout
-      </button>
+      <NavUnitCard
+        text="Sign out"
+        icon={<LogoutIcon fontSize="large" />}
+        link="/login"
+        onClick={handleLogout}
+      />
     </div>
   );
 };

@@ -10,9 +10,8 @@ export const login = async (email: string, password: string) => {
     },
     { withCredentials: true }
   );
-  console.log(response.data);
 
-  return response.status;
+  return response;
 };
 
 export const register = async (
@@ -31,10 +30,9 @@ export const register = async (
     },
     { withCredentials: true }
   );
-
-  console.log(response.data);
+  return response;
 };
 
 export const logout = async () => {
-  await axios.get(baseUrl + "/logout");
+  await axios.get(baseUrl + "/logout", { withCredentials: true });
 };

@@ -3,13 +3,14 @@ import { client } from "./pgConnections";
 const queries = [
   `
     CREATE TABLE IF NOT EXISTS "transactions" (
-        "id" SERIAL,
+        "id" BIGSERIAL,
         "title" varchar(255) NOT NULL,
         "date" TIMESTAMPTZ,
         "tag" varchar(255) NOT NULL,
         "type" varchar(255) NOT NULL,
         "amount" INT,
         "notes" TEXT,
+        "createdby" BIGINT,
         PRIMARY KEY ("id")
     );`,
   `

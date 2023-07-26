@@ -6,9 +6,7 @@ export const checkAuthenticated = async () => {
     const response = await axios.get(baseUrl + "/checkAuthenticated", {
       withCredentials: true,
     });
-    console.log(response);
     if (response.status === 200 && response.data.status === "success") {
-      console.log("User is authenticated");
       return true;
     } else {
       return false;
@@ -18,18 +16,11 @@ export const checkAuthenticated = async () => {
   }
 };
 
-export const checkNotAuthenticated = async () => {
+export const getUserId = async () => {
   try {
-    const response = await axios.get(baseUrl + "/checkNotAuthenticated", {
+    const id = await axios.get(baseUrl + "/getCurrent", {
       withCredentials: true,
     });
-
-    if (response.data.isAuthenticated) {
-      console.log("User is authenticated");
-    } else {
-      console.log("User is not authenticated");
-    }
-  } catch (error) {
-    console.log(error);
-  }
+    return id.data.userId;
+  } catch (error) {}
 };

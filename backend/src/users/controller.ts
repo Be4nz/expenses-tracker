@@ -9,13 +9,6 @@ const registerUser = async (req: Request, res: Response) => {
 
   let errors: any[] = [];
 
-  console.log({
-    name,
-    email,
-    password,
-    password2,
-  });
-
   if (!name || !email || !password || !password2) {
     errors.push({ message: "Please enter all fields" });
   }
@@ -39,12 +32,10 @@ const registerUser = async (req: Request, res: Response) => {
       [email],
       (err: Error, results: any) => {
         if (err) {
-          console.log(err);
         }
-        console.log(results.rows);
-
         if (results.rows.length > 0) {
-          return res.status(409).json({ message: "Email already registered" }); // <=== Change here
+          errors.push({ message: "Email already registered" });
+          return res.status(400).json({ errors }); // <=== Change here
         } else {
           pool.query(
             queries.insertUser,
@@ -53,7 +44,6 @@ const registerUser = async (req: Request, res: Response) => {
               if (err) {
                 throw err;
               }
-              console.log(results.rows);
               return res
                 .status(200)
                 .json({ message: "You are now registered. Please log in" }); // <=== Change here
@@ -66,8 +56,28 @@ const registerUser = async (req: Request, res: Response) => {
 };
 
 const logoutUser = (req: Request, res: Response) => {
-  req.logout(() => {});
-  return res.status(200).json({ message: "You have logged out successfully" }); // <=== Change here
+  req.session.destroy((err) => {
+    if (err) {
+      console.log("Error while destroying session: ", err);
+      return res
+        .status(500)
+        .json({ message: "Encountered an error while logging out" });
+    } else {
+      req.logout(() => {});
+      return res
+        .status(200)
+        .json({ message: "You have logged out successfully" });
+    }
+  });
 };
 
-export default { registerUser, logoutUser };
+const getUserId = (req: Request, res: Response): Response | undefined => {
+  if (req.user && "id" in req.user) {
+    const userId = req.user.id;
+    return res.send({ userId });
+  } else {
+    return res.status(401).send({ error: "Not Authorized" });
+  }
+};
+
+export default { registerUser, logoutUser, getUserId };
