@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { LoginData } from "../../types/login";
 import { TextField, styled } from "@mui/material";
 
